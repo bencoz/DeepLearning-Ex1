@@ -62,7 +62,6 @@ class MyNN:
             self.grads[f'db_{str(layer_index)}'] = db
             dz = (a_l_1 * (1 - a_l_1)).reshape(-1, 1) * np.dot(W_l.T, dz.reshape(-1, 1))
 
-    # TODO: update weights with grads
     def update(self):
         for layer_index in range(len(self.layer_sizes) - 1):
             # updating W
@@ -75,7 +74,6 @@ class MyNN:
                 self.model_params['b_' + str(layer_index + 1)] - \
                 (self.grads['db_' + str(layer_index + 1)] * self.learning_rate)
 
-    # TODO: implement forward for a batch X.shape = (network_input_size, number_of_instance)
     def forward_batch(self, X):
         a_i_1 = X
         self.memory['A_0'] = X
@@ -88,7 +86,6 @@ class MyNN:
             a_i_1 = a_i
         return a_i_1
 
-    # TODO: implement backward for a batch y.shape = (1, number_of_instance)
     def backward_batch(self, y):
         a_output = self.memory['A_' + str(len(self.layer_sizes) - 1)]
         dz = a_output - y
@@ -105,7 +102,6 @@ class MyNN:
 
             dz = (a_l_1 * (1 - a_l_1)) * np.dot(W_l.T, dz)
 
-    # TODO: implement log_loss_batch, for a batch of instances
     def log_loss_batch(self, y_hat, y):
         cost = -y * np.log(y_hat) - (1 - y) * np.log(1 - y_hat)
         return cost.mean()
@@ -155,8 +151,6 @@ def train(X, y, epochs, batch_size):
         print(f'Epoch {e}, loss={epoch_loss}')
     return epochs_loss_history
 
-
-# TODO: Make sure the following network trains properly
 
 # nn = MyNN(0.003, [6, 4, 3, 1])
 #
